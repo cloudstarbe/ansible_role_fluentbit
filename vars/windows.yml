@@ -1,0 +1,8 @@
+---
+fluentbit_path: "C:\\fluent-bit"
+fluentbit_conf_directory: "{{ fluentbit_path }}\\conf"
+fluentbit_conf_file_path: "{{ fluentbit_conf_directory }}\\fluent-bit.conf"
+# Enable ansible managed parser if there are some defined
+fluentbit_managed_parsers_enable: "{{ ((_fluentbit_parsers | length) or (_fluentbit_mlparsers | length)) > 0 | bool }}"
+fluentbit_managed_parsers_file: "{{ fluentbit_conf_directory }}\\managed-parsers.conf"
+fluentbit_dbs_path: "{{ fluentbit_path }}\\dbs"
