@@ -32,21 +32,21 @@
 {% if fluentbit_svc_storage is defined and fluentbit_svc_storage | length > 0 %}
   # Storage configuration
 {% for key, value in fluentbit_svc_storage.items() %}
-  Storage.{{ key }} {{ value }}
+  Storage.{{ key }} {{ value | replace('\\\\', '\\') }}
 {% endfor %}
 {% endif %}
 
 {% if fluentbit_svc_http is defined and fluentbit_svc_http | length > 0 %}
   # HTTP Server (Monitoring related)
 {% for key, value in fluentbit_svc_http.items() %}
-  HTTP_{{ key }} {{ value }}
+  HTTP_{{ key }} {{ value | replace('\\\\', '\\') }}
 {% endfor %}
 {% endif %}
 
 {% for _input in _fluentbit_inputs %}
 [INPUT]
 {% for key, value in _input.items() %}
-  {{ key | regex_replace ('^[0-9]+__', '') }} {{ value }}
+  {{ key | regex_replace ('^[0-9]+__', '') }} {{ value | replace('\\\\', '\\') }}
 {% endfor %}
 
 {% endfor -%}
@@ -54,7 +54,7 @@
 {% for _filter in _fluentbit_filters %}
 [FILTER]
 {% for key, value in _filter.items() %}
-  {{ key | regex_replace ('^[0-9]+__', '') }} {{ value }}
+  {{ key | regex_replace ('^[0-9]+__', '') }} {{ value | replace('\\\\', '\\') }}
 {% endfor %}
 
 {% endfor -%}
@@ -62,7 +62,7 @@
 {% for _output in _fluentbit_outputs %}
 [OUTPUT]
 {% for key, value in _output.items() %}
-  {{ key | regex_replace ('^[0-9]+__', '') }} {{ value }}
+  {{ key | regex_replace ('^[0-9]+__', '') }} {{ value | replace('\\\\', '\\') }}
 {% endfor %}
 
 {% endfor -%}
